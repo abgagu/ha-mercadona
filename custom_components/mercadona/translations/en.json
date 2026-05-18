@@ -1,0 +1,30 @@
+{
+	"config": {
+		"step": {
+			"user": {
+				"title": "Mercadona account",
+				"description": "Enter the email and password of your tienda.mercadona.es account. Credentials are stored encrypted by Home Assistant and used only to authenticate against Mercadona's API.",
+				"data": {
+					"username": "Email",
+					"password": "Password"
+				}
+			}
+		},
+		"error": {
+			"invalid_auth": "Credentials rejected by Mercadona.",
+			"cannot_connect": "Could not connect to Mercadona."
+		},
+		"abort": {
+			"already_configured": "This Mercadona account is already configured."
+		}
+	},
+	"entity": {
+		"sensor": {
+			"cart_total": { "name": "Cart total" },
+			"minimum_gap": { "name": "Gap to minimum order" }
+		},
+		"binary_sensor": {
+			"min_order_reached": { "name": "Minimum order reached" }
+		}
+	}
+}

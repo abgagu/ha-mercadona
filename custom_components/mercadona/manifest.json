@@ -1,0 +1,13 @@
+{
+	"domain": "mercadona",
+	"name": "Mercadona",
+	"version": "0.1.0",
+	"documentation": "https://github.com/abgagu/ha-mercadona",
+	"issue_tracker": "https://github.com/abgagu/ha-mercadona/issues",
+	"codeowners": ["@abgagu"],
+	"config_flow": true,
+	"integration_type": "hub",
+	"iot_class": "cloud_polling",
+	"requirements": [],
+	"dependencies": []
+}

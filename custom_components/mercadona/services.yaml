@@ -1,0 +1,100 @@
+add_product:
+  name: Anadir producto
+  description: >-
+    Anade un producto al carrito. Indica `name` (busca en Mis Habituales con matcher)
+    o `product_id` (resolucion directa, sin matcher: util tras una desambiguacion).
+  fields:
+    name:
+      name: Nombre
+      description: Nombre o frase a buscar (p.ej. "kefir desnatado"). Ignorado si se pasa product_id.
+      required: false
+      selector:
+        text:
+    product_id:
+      name: ID del producto
+      description: ID exacto del producto en Mercadona. Salta el matcher y anade ese producto sin ambiguedad.
+      required: false
+      selector:
+        text:
+    quantity:
+      name: Cantidad
+      description: >-
+        Unidades a anadir. Si se omite, se usa la cantidad recomendada del
+        producto (recommended_quantity del API; fallback 1).
+      selector:
+        number:
+          min: 1
+          max: 50
+          mode: box
+
+bulk_add:
+  name: Anadir lista entera
+  description: >-
+    Anade varios productos en una sola operacion. Util para volcar la lista de la compra.
+    Cada item puede ser un string (nombre), o un objeto {name, quantity} o {product_id, quantity}.
+    Cuando un item es ambiguo, en la respuesta se devuelven los candidatos con su product_id
+    para que el caller pueda re-llamar con product_id y evitar la ambiguedad.
+    Si dry_run es true, se devuelve la resolucion (added/not_found/ambiguous) sin tocar el carrito.
+  fields:
+    items:
+      name: Items
+      description: Lista de strings o de objetos {name|product_id, quantity}.
+      required: true
+      example: |
+        - leche
+        - { name: "kefir", quantity: 2 }
+        - { product_id: "12345", quantity: 1 }
+      selector:
+        object:
+    dry_run:
+      name: Solo simular
+      description: Si true, devuelve la resolucion sin modificar el carrito.
+      default: false
+      selector:
+        boolean:
+
+remove_product:
+  name: Quitar producto
+  description: Elimina la linea del carrito. Acepta `name` (matcher) o `product_id` (directo).
+  fields:
+    name:
+      name: Nombre
+      required: false
+      selector:
+        text:
+    product_id:
+      name: ID del producto
+      required: false
+      selector:
+        text:
+
+clear_cart:
+  name: Vaciar carrito
+  description: Elimina todas las lineas del carrito.
+
+set_quantity:
+  name: Fijar cantidad
+  description: Establece la cantidad exacta de un producto en el carrito. 0 lo elimina.
+  fields:
+    name:
+      name: Nombre
+      required: false
+      selector:
+        text:
+    product_id:
+      name: ID del producto
+      required: false
+      selector:
+        text:
+    quantity:
+      name: Cantidad
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 50
+          mode: box
+
+refresh_regulars:
+  name: Recargar Mis Habituales
+  description: Fuerza recarga del cache de productos habituales sin esperar al TTL de 1 hora.

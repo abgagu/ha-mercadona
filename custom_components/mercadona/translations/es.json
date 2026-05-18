@@ -1,0 +1,30 @@
+{
+	"config": {
+		"step": {
+			"user": {
+				"title": "Cuenta de Mercadona",
+				"description": "Introduce el email y la contrasena de tu cuenta de tienda.mercadona.es. Las credenciales se guardan cifradas en Home Assistant y solo se usan para autenticar contra el API de Mercadona.",
+				"data": {
+					"username": "Email",
+					"password": "Contrasena"
+				}
+			}
+		},
+		"error": {
+			"invalid_auth": "Credenciales rechazadas por Mercadona.",
+			"cannot_connect": "No se pudo conectar con Mercadona."
+		},
+		"abort": {
+			"already_configured": "Esta cuenta de Mercadona ya esta configurada."
+		}
+	},
+	"entity": {
+		"sensor": {
+			"cart_total": { "name": "Total del carrito" },
+			"minimum_gap": { "name": "Faltante hasta el minimo" }
+		},
+		"binary_sensor": {
+			"min_order_reached": { "name": "Minimo de pedido alcanzado" }
+		}
+	}
+}
